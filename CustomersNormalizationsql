@@ -299,3 +299,83 @@ ON a.positionid  = d.positionid
 WHERE (d.POSITION   = 'ATF agent'
 OR e.COMPANY      = 'Trak Auto');
 
+SELECT a.customerid, a.title,
+  (a.firstname
+  || ' '
+  || a.lastname) AS "Full Name",
+  e.company,
+  a.streetaddress,
+  b.city,
+  c.state,
+  a.zipcode,
+  a.emailaddress,
+  d.position
+FROM customers a
+JOIN companies e
+ON a.companyID = e.companyid
+JOIN cities b
+ON a.cityID = b.cityid
+JOIN states c
+ON a.stateid = c.stateid
+JOIN positions d
+ON a.positionid  = d.positionid
+WHERE a.LASTNAME ='Smith';
+
+commit;
+
+select streetaddress from customers where customerid = 3549;  
+
+UPDATE CUSTOMERS set CUSTOMERID = ROWNUM, FIRSTNAME = '';
+
+select * from companies where company='Infosys';
+
+delete from COMPANIES where company='Infosys';
+
+
+INSERT INTO CUSTOMERS VALUES
+  ('',
+  '',
+  '',
+  '',
+  '',
+  '',
+  0,
+  (select cityid default (select max(cityid)+1 from cities) from cities where city = 'Rockddville') ,
+  0,
+  0,
+  (select max(CUSTOMERID)+1 from CUSTOMERS)
+  );
+  
+select max(CUSTOMERID)+1 from CUSTOMERS;
+
+delete from CUSTOMERS where cityid =0 and companyid =0;
+
+delete from POSITIONS where POSITION = 'Technology Analyst';
+
+delete from State where POSITION = 'Technology Analyst';
+
+select * from CUSTOMERS where LASTNAME ='Kaur';
+
+SELECT cityid FROM cities WHERE city = 'Rockville';
+--
+--ALTER TABLE customers ADD customerid INTEGER;
+--
+--UPDATE CUSTOMERS SET CUSTOMERID = rownum;
+--
+--SELECT * FROM customers;
+
+SELECT a.Number_Of_Customers,
+  b.NUMBER_OF_States,
+  c.Number_of_Companies
+FROM
+  (SELECT COUNT( DISTINCT customerid) AS Number_Of_Customers FROM customers
+  ) a,
+  (SELECT COUNT (DISTINCT stateid) AS NUMBER_OF_States FROM customers
+  ) b,
+  (SELECT COUNT (DISTINCT companyid) AS Number_of_Companies FROM customers
+  ) c ; 
+  
+  select a.firstname from customers a inner join companies b on a.customerid= b.companyid where a.customerid =1;
+  
+  
+  select coalesce ((select companyid from Companies where company = 'Trak Auto'),-1) as ID from dual;
