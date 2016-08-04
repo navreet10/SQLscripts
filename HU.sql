@@ -29,6 +29,8 @@ pwd varchar2(200) not null
 insert into huuser values ('Navreet', 'Navreet', 'Kaur', 'study.javaclass@gmail.com', 'abc123');
 insert into huuser values ('Dave', 'Dave', 'Wolf', 'study.javaclass@gmail.com', 'abc123');
 
+select * from huuser;
+
 create table department (
 deptid integer primary key, 
 dept varchar2(50) unique not null
@@ -137,4 +139,9 @@ create sequence  grade_id_seq start with 1 increment by 1 nocache;
 insert into grade values(grade_id_seq.nextval, 1,1,'NA');
 
 commit;
+
+
+select * from grade;
+
+delete from grade where id =2;
 
